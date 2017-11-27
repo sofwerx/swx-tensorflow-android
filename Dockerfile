@@ -118,11 +118,28 @@ RUN mkdir -p ~/.android $ANDROID_HOME/.android && \
 # Updating everything again
 RUN yes | sdkmanager --update
 
+WORKDIR /tensorflow
+
+RUN git remote add sofwerx https://github.com/sofwerx/tensorflow && \
+    git fetch --all && \
+    git reset --hard sofwerx/master
+
 WORKDIR /tensorflow/tensorflow/examples/android
-RUN git pull
+
 RUN sed -i -e "s/def nativeBuildSystem = 'bazel'/def nativeBuildSystem = 'cmake'/" build.gradle
 
+RUN find /tensorflow -name '*.pb' -print
+
 RUN gradle build
+
+# Include David's trained model
+ARG MODEL_VERSION=v1.0.0
+RUN cd /tensorflow/tensorflow/examples/android/assets/ && \
+    curl -sLo retrained_graph.pb https://github.com/sofwerx/swx-tensorflow-android/releases/download/${MODEL_VERSION}/retrained_graph.pb
+
+RUN gradle build
+
+RUN find /tensorflow -name '*.pb' -print
 
 WORKDIR /outputs
 VOLUME /outputs
@@ -130,6 +147,8 @@ VOLUME /outputs
 # The built APK files are now available here:
 # /tensorflow/tensorflow/examples/android/gradleBuild/outputs/apk/android-release-unsigned.apk
 # /tensorflow/tensorflow/examples/android/gradleBuild/outputs/apk/android-debug.apk
+
+RUN find /tensorflow -name '*.apk' -print
 
 # This will copy the apk files to the /outputs folder
 CMD bash -c "\
