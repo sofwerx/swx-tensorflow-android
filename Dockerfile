@@ -120,9 +120,9 @@ RUN yes | sdkmanager --update
 
 WORKDIR /tensorflow
 
-RUN git remote add sofwerx https://github.com/sofwerx/tensorflow && \
+RUN git remote set-url sofwerx https://github.com/sofwerx/tensorflow && \
     git fetch --all && \
-    git reset --hard sofwerx/master
+    git reset --hard master
 
 RUN ls -la /tensorflow/tensorflow/examples/
 
