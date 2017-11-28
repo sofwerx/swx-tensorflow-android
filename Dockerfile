@@ -124,6 +124,8 @@ RUN git remote add sofwerx https://github.com/sofwerx/tensorflow && \
     git fetch --all && \
     git reset --hard sofwerx/master
 
+RUN ls -la /tensorflow/tensorflow/examples/
+
 ARG APPDIR=/tensorflow/tensorflow/examples/sofwerx-android
 ENV APPDIR $APPDIR
 WORKDIR $APPDIR
