@@ -145,13 +145,13 @@ WORKDIR /outputs
 VOLUME /outputs
 
 # The built APK files should now be available here:
-# /tensorflow/tensorflow/examples/sofwerx-android/gradleBuild/outputs/apk/android-release-unsigned.apk
-# /tensorflow/tensorflow/examples/sofwerx-android/gradleBuild/outputs/apk/android-debug.apk
+# /tensorflow/tensorflow/examples/sofwerx-android/gradleBuild/outputs/apk/sofwerx-android-release-unsigned.apk
+# /tensorflow/tensorflow/examples/sofwerx-android/gradleBuild/outputs/apk/sofwerx-android-debug.apk
 
 RUN find /tensorflow -name '*.apk' -print
 
 # This will copy the apk files to the /outputs folder
 CMD bash -c "\
-      cp $APPDIR/gradleBuild/outputs/apk/android-release-unsigned.apk /outputs ; \
-      cp $APPDIR/gradleBuild/outputs/apk/android-debug.apk /outputs \
+      cp $APPDIR/gradleBuild/outputs/apk/sofwerx-android-release-unsigned.apk /outputs ; \
+      cp $APPDIR/gradleBuild/outputs/apk/sofwerx-android-debug.apk /outputs \
     "

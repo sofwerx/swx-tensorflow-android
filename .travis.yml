@@ -7,8 +7,8 @@ script:
 - docker build --cache-from sofwerx/swx-tensorflow-android:latest --build-arg TRAVIS_TAG=${TRAVIS_TAG} -t sofwerx/swx-tensorflow-android:latest .
 - docker-compose up
 after_success:
-- mv outputs/android-debug.apk swx-tensorflow-android-debug-${TRAVIS_TAG}.apk
-- mv outputs/android-release-unsigned.apk swx-tensorflow-android-release-unsigned-${TRAVIS_TAG}.apk
+- mv outputs/sofwerx-android-debug.apk swx-tensorflow-android-debug-${TRAVIS_TAG}.apk
+- mv outputs/sofwerx-android-release-unsigned.apk swx-tensorflow-android-release-unsigned-${TRAVIS_TAG}.apk
 - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 - docker push sofwerx/swx-tensorflow-android
 branches:
