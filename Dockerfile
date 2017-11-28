@@ -133,9 +133,9 @@ RUN find /tensorflow -name '*.pb' -print
 RUN gradle build
 
 # Include David's trained model
-ARG MODEL_VERSION=v1.0.0
+ARG TRAVIS_TAG=v1.0.0
 RUN cd /tensorflow/tensorflow/examples/android/assets/ && \
-    curl -sLo retrained_graph.pb https://github.com/sofwerx/swx-tensorflow-android/releases/download/${MODEL_VERSION}/retrained_graph.pb
+    curl -sLo retrained_graph.pb https://github.com/sofwerx/swx-tensorflow-android/releases/download/${TRAVIS_TAG}/retrained_graph.pb
 
 RUN gradle build
 
