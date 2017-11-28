@@ -124,34 +124,34 @@ RUN git remote add sofwerx https://github.com/sofwerx/tensorflow && \
     git fetch --all && \
     git reset --hard sofwerx/master
 
-WORKDIR /tensorflow/tensorflow/examples/android
+ARG APPDIR=/tensorflow/tensorflow/examples/sofwerx-android
+ENV APPDIR
+WORKDIR $APPDIR
 
 RUN sed -i -e "s/def nativeBuildSystem = 'bazel'/def nativeBuildSystem = 'cmake'/" build.gradle
-
-RUN find /tensorflow -name '*.pb' -print
 
 RUN gradle build
 
 # Include David's trained model
 ARG TRAVIS_TAG=v1.0.0
-RUN cd /tensorflow/tensorflow/examples/android/assets/ && \
+ENV TRAVIS_TAG
+
+RUN cd assets && \
     curl -sLo retrained_graph.pb https://github.com/sofwerx/swx-tensorflow-android/releases/download/${TRAVIS_TAG}/retrained_graph.pb
 
 RUN gradle build
 
-RUN find /tensorflow -name '*.pb' -print
-
 WORKDIR /outputs
 VOLUME /outputs
 
-# The built APK files are now available here:
-# /tensorflow/tensorflow/examples/android/gradleBuild/outputs/apk/android-release-unsigned.apk
-# /tensorflow/tensorflow/examples/android/gradleBuild/outputs/apk/android-debug.apk
+# The built APK files should now be available here:
+# /tensorflow/tensorflow/examples/sofwerx-android/gradleBuild/outputs/apk/android-release-unsigned.apk
+# /tensorflow/tensorflow/examples/sofwerx-android/gradleBuild/outputs/apk/android-debug.apk
 
 RUN find /tensorflow -name '*.apk' -print
 
 # This will copy the apk files to the /outputs folder
 CMD bash -c "\
-      cp /tensorflow/tensorflow/examples/android/gradleBuild/outputs/apk/android-release-unsigned.apk /outputs ; \
-      cp /tensorflow/tensorflow/examples/android/gradleBuild/outputs/apk/android-debug.apk /outputs \
+      cp $APPDIR/gradleBuild/outputs/apk/android-release-unsigned.apk /outputs ; \
+      cp $APPDIR/gradleBuild/outputs/apk/android-debug.apk /outputs \
     "
