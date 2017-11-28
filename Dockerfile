@@ -125,7 +125,7 @@ RUN git remote add sofwerx https://github.com/sofwerx/tensorflow && \
     git reset --hard sofwerx/master
 
 ARG APPDIR=/tensorflow/tensorflow/examples/sofwerx-android
-ENV APPDIR
+ENV APPDIR $APPDIR
 WORKDIR $APPDIR
 
 RUN sed -i -e "s/def nativeBuildSystem = 'bazel'/def nativeBuildSystem = 'cmake'/" build.gradle
@@ -134,7 +134,7 @@ RUN gradle build
 
 # Include David's trained model
 ARG TRAVIS_TAG=v1.0.0
-ENV TRAVIS_TAG
+ENV TRAVIS_TAG $TRAVIS_TAG
 
 RUN cd assets && \
     curl -sLo retrained_graph.pb https://github.com/sofwerx/swx-tensorflow-android/releases/download/${TRAVIS_TAG}/retrained_graph.pb
