@@ -72,8 +72,8 @@ ENV LD_LIBRARY_PATH ${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib6
 
 # Install Android NDK
 ENV ANDROID_NDK_VERSION r15c
-RUN wget http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip && \
-    unzip android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip && \
+RUN wget -q http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip && \
+    unzip -q android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip && \
     mv android-ndk-${ANDROID_NDK_VERSION} /opt/android-ndk && \
     rm android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip
 
@@ -81,7 +81,7 @@ RUN wget http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSI
 ENV GRADLE_VERSION 4.3
 RUN cd /opt && \
     wget -q https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip && \
-    unzip gradle*.zip && \
+    unzip -q gradle*.zip && \
     mv gradle-${GRADLE_VERSION} gradle && \
     rm gradle*.zip
 ENV GRADLE_HOME /opt/gradle
