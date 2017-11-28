@@ -47,8 +47,8 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
 # Download and untar Android SDK tools
 RUN mkdir -p /opt/android-sdk && \
-    wget https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -O tools.zip && \
-    unzip tools.zip -d /opt/android-sdk && \
+    wget -q https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -O tools.zip && \
+    unzip -q tools.zip -d /opt/android-sdk && \
     rm tools.zip
 
 # Set environment variable
