@@ -7,7 +7,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      cache_from: sofwerx/swx-tensorflow-android:latest
+#      cache_from: sofwerx/swx-tensorflow-android:latest
       args:
         - TRAVIS_TAG=${TRAVIS_TAG}
     volumes:
