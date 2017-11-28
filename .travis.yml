@@ -3,6 +3,7 @@ services:
 - docker
 language: bash
 script:
+- docker pull sofwerx/swx-tensorflow-android:latest
 - docker-compose up
 after_success:
 - mv outputs/android-debug.apk swx-tensorflow-android-debug-${TRAVIS_TAG}.apk
