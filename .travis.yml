@@ -1,0 +1,25 @@
+sudo: required
+services:
+- docker
+language: bash
+script:
+- docker-compose up
+after_success:
+- mv outputs/android-debug.apk swx-tensorflow-android-debug-${TRAVIS_TAG}.apk
+- mv outputs/android-release-unsigned.apk swx-tensorflow-android-release-unsigned-${TRAVIS_TAG}.apk
+- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+- docker push sofwerx/swx-tensorflow-android
+branches:
+  only:
+  - master
+  - "/^v\\d.*$/"
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key: "${GITHUB_TOKEN}"
+  file:
+  - swx-tensorflow-android-debug-${TRAVIS_TAG}.apk
+  - swx-tensorflow-android-release-unsigned-${TRAVIS_TAG}.apk
+  on:
+    tags: true
+    repo: "${TRAVIS_REPO_SLUG}"
