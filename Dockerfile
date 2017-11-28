@@ -128,6 +128,7 @@ ARG APPDIR=/tensorflow/tensorflow/examples/sofwerx-android
 ENV APPDIR $APPDIR
 WORKDIR $APPDIR
 
+RUN pwd && ls -la
 RUN sed -i -e "s/def nativeBuildSystem = 'bazel'/def nativeBuildSystem = 'cmake'/" build.gradle
 
 RUN gradle build
