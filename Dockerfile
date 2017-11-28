@@ -120,17 +120,18 @@ RUN yes | sdkmanager --update
 
 WORKDIR /tensorflow
 
+RUN ls -la /tensorflow/tensorflow/examples/
 RUN git remote set-url origin https://github.com/sofwerx/tensorflow && \
+    git remote -v && \
     git fetch --all && \
-    git reset --hard master
-
+    git reset --hard origin/master
 RUN ls -la /tensorflow/tensorflow/examples/
 
 ARG APPDIR=/tensorflow/tensorflow/examples/sofwerx-android
 ENV APPDIR $APPDIR
 WORKDIR $APPDIR
 
-RUN pwd && ls -la /tensorflow/tensorflow/example
+RUN pwd && ls -la
 RUN sed -i -e "s/def nativeBuildSystem = 'bazel'/def nativeBuildSystem = 'cmake'/" build.gradle
 
 RUN gradle build
