@@ -3,13 +3,11 @@ version: '2'
 services:
   tensorflow:
     container_name: tensorflow
-    image: sofwerx/swx-tensorflow-android:latest
+    image: sofwerx/swx-tensorflow-android:lite
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.lite
 #      cache_from: sofwerx/swx-tensorflow-android:latest
-      args:
-        - TRAVIS_TAG=${TRAVIS_TAG}
     volumes:
       - "./outputs:/outputs"
 
