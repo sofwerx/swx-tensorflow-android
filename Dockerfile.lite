@@ -148,18 +148,13 @@ RUN find $ANDROID_HOME -name package.xml -exec sh -c 'eval $(xmllint --xpath "//
 
 # Instead of building entirely from source with bazel,
 # let's build the app with gradle and use the jcenter pre-compiled .jar version of tensorflow lite
-WORKDIR /tensorflow/tensorflow/contrib/sofwerx-lite/java/demo/app
+WORKDIR $APPDIR/java/demo/app
 RUN gradle build
 
-# The built APK files should now be available here:
-# ./build/outputs/apk/app-debug.apk
-# ./build/outputs/apk/app-release-unsigned.apk
-
-WORKDIR /outputs
 VOLUME /outputs
 
 # This will copy the apk files to the /outputs folder
 CMD bash -c "\
-      cp -f ./build/outputs/apk/app-debug.apk /outputs ; \
-      cp -f ./build/outputs/apk/app-release-unsigned.apk /outputs \
+      cp -f $APPDIR/java/demo/app/build/outputs/apk/app-debug.apk /outputs ; \
+      cp -f $APPDIR/java/demo/app/build/outputs/apk/app-release-unsigned.apk /outputs \
     "

@@ -24,3 +24,17 @@ If a new Github release triggered the build, the `.pb` model uploaded along with
 
 The resultant `.apk` files are then automatically published back to Github as asset binaries under the Release.
 
+# Running
+
+Sideload install the app:
+
+    adb install ./outputs/app-debug.apk
+
+Run the app:
+
+    adb shell monkey -p com.example.sofwerx.android.tflitecamerademo -c android.intent.category.LAUNCHER 1
+
+Uninstall the app:
+
+    adb uninstall com.example.sofwerx.android.tflitecamerademo
+
